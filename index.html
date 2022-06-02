@@ -1,90 +1,17 @@
 <!DOCTYPE html>
-
 <html>
-  <head>
-    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
-    <script>
-      window.onload = function () {
-        document.querySelector(".ayuda").addEventListener("click", function () {
-          alert(
-            "Para utilizar esta aplicacion, debes utilizar la camara de tu celular a traves de esta pagina web y escanear los codigos QRs que estan disponibles en orbitars.github.io acerca tu camara a los distintos qrs disponibles y veras como estos se muestran como modelos 3D"
-          );
-        });
-      };
-    </script>
-    <style>
-      .buttons {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 5em;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 10;
-      }
-
-      .boton {
-        margin: 1em;
-        padding: 0.25em;
-        border-radius: 4px;
-        border: none;
-        background: white;
-        color: black;
-        width: 4em;
-        height: 2em;
-      }
-    </style>
-  </head>
-
-  <body style="margin: 0; overflow: hidden">
-    <div class="buttons">
-      <button class="boton ayuda">Ayuda</button>
-    </div>
-    <a-scene
-      vr-mode-ui="enabled: false;"
-      loading-screen="enabled: false;"
-      renderer="logarithmicDepthBuffer: true;"
-      arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
-      id="scene"
-      embedded
-      gesture-detector
-    >
-      <a-assets>
-        <a-asset-item
-          id="dccin-asset"
-          src="assets/models/DCCinPose.gltf"
-        ></a-asset-item>
-      </a-assets>
-
-      <!-- Para la implementación de los marcadores y modelos se hizo uso de la herramineta: https://ar-js-org.github.io/studio/-->
-
-     <!-- El modelo Earth fue obtenido de https://poly.google.com/ y fue desarrollado por Robert Mirabelle-->
-      <a-marker
-        id="earth-marker"
-        type="pattern"
-        preset="custom"
-        url="assets/markers_patt/marker_earth.patt"
-        raycaster="objects: .clickable"
-        emitevents="true"
-        cursor="fuse: false; rayOrigin: mouse;"
-        id="markerA"
-      >
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <!-- we import arjs version without NFT but with marker + location based support -->
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <body style="margin : 0px; overflow: hidden;">
+    <a-scene embedded arjs>
+      <a-marker preset="hiro">
         <a-entity
-          id="dccin-model"
-          scale="0.020583155377681475 0.020583155377681475 0.020583155377681475"
-          animation-mixer="loop: repeat"
-          gltf-model="#dccin-asset"
-          class="clickable"
-          gesture-handler
+          position="0 0 0"
+          scale="0.05 0.05 0.05"
+          gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
         ></a-entity>
       </a-marker>
-      
       <a-entity camera></a-entity>
     </a-scene>
   </body>
